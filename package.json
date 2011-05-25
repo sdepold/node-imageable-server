@@ -15,8 +15,7 @@
     "node": ">=v0.4.7"
   },
   "dependencies": {
-    "express": ">=2.3.7",
-    "jade": ">=0"
+    "express": ">=2.3.7"
 	},
   "devDependencies": {
     "vows": ">=0.5.8"
