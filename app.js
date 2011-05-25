@@ -1,5 +1,5 @@
 var express = require('express')
-  , imageable = require("/Users/sdepold/Projects/node-imageable/index")
+  , imageable = require("imageable")
 
 var app = module.exports = express.createServer()
 

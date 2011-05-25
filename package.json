@@ -15,7 +15,8 @@
     "node": ">=v0.4.7"
   },
   "dependencies": {
-    "express": ">=2.3.7"
+    "express": ">=2.3.7",
+    "imageable": ">=0.0.2"
 	},
   "devDependencies": {
     "vows": ">=0.5.8"
