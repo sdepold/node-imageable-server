@@ -1,5 +1,6 @@
 var express   = require('express')
   , imageable = require("imageable")
+  , imageable = require("/Users/sdepold/Projects/node-imageable/index")
   , app       = module.exports = express.createServer()
   , fs        = require("fs")
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
@@ -9,8 +10,8 @@ app.configure(function(){
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
-    before: function() { console.log('before') },
-    after: function() { console.log('after') }
+    before: function() {},
+    after: function() {}
   }))
   app.use(app.router)
 })
