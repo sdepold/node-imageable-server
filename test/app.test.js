@@ -48,13 +48,13 @@ vows.describe('app').addBatch({
         var cb     = this.callback
           , target = helpers.testImageTargetPath
 
-        helpers.requestServer('/crop/magic?url=' + srcImgUrl + '&crop=' + encodeURIComponent('200x400+10+10'), {toFile: target}, function() {
+        helpers.requestServer('/crop/magic?url=' + srcImgUrl + '&crop=' + encodeURIComponent('50x50+10+10'), {toFile: target}, function() {
           helpers.exec('identify ' + target, cb)
         })
       },
       'resizes the image to 200x400': function(err, stdout) {
-        // assert.ok(typeof stdout != 'undefined')
-        // assert.includes(stdout, "200x400")
+        assert.ok(typeof stdout != 'undefined')
+        assert.includes(stdout, "50x50")
       }
     },
     'with valid hash': {
