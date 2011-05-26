@@ -1,3 +1,5 @@
 tmp
 tmp/*
 node_modules
+config
+config/*
