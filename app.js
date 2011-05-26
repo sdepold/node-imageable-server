@@ -1,18 +1,14 @@
-var express = require('express')
+var express   = require('express')
   , imageable = require("imageable")
-
-var app = module.exports = express.createServer()
-
+  , app       = module.exports = express.createServer()
+  , fs        = require("fs")
+  , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
+  
 // Configuration
-
 app.configure(function(){
   app.use(express.bodyParser())
   app.use(express.methodOverride())
-  app.use(imageable({
-    "secret" : "my-very-secret-secret",
-    "magicHash" : "magic"
-  }, {
-    namespace: 'foobar', // --> default: 'imageable' --> listen for /imageable/resize...
+  app.use(imageable(config, {
     before: function() { console.log('before') },
     after: function() { console.log('after') }
   }))
