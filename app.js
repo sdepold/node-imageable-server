@@ -10,9 +10,9 @@ app.configure(function(){
   app.use(express.methodOverride())
   app.use(imageable({
     "secret" : "my-very-secret-secret",
-    "magicHash" : "magic",
-    "port" : 3000
+    "magicHash" : "magic"
   }, {
+    namespace: 'foobar', // --> default: 'imageable' --> listen for /imageable/resize...
     before: function() { console.log('before') },
     after: function() { console.log('after') }
   }))
@@ -28,12 +28,12 @@ app.configure('production', function(){
 })
 
 // Routes
-app.get('/', function(req, res, next){
+app.get('/', function(req, res, next) {
   res.send('This is not the page you are looking for.', 404)
 })
 
 // Only listen on $ node app.js
 if (!module.parent) {
-  app.listen(3000)
+  app.listen(process.env.PORT || 3000)
   console.log("Express server listening on port %d", app.address().port)
 }
