@@ -3,6 +3,7 @@ var express   = require('express')
   , app       = module.exports = express.createServer()
   , fs        = require("fs")
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
+  , http      = require("http")
   
 // Configuration
 app.configure(function(){
@@ -12,7 +13,7 @@ app.configure(function(){
     before: function() { return +new Date() },
     after: function(start) {
       var duration = +new Date() - start
-      console.log(duration)
+      config.hasOwnProperty('hummingBird') && http.get(config.hummingBird)
     }
   }))
   app.use(app.router)
