@@ -9,8 +9,11 @@ app.configure(function(){
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
-    before: function() {},
-    after: function() {}
+    before: function() { return +new Date() },
+    after: function(start) {
+      var duration = +new Date() - start
+      console.log(duration)
+    }
   }))
   app.use(app.router)
 })
