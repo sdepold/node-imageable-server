@@ -29,7 +29,7 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', function(req, res, next) {
-  res.send('This is not the page you are looking for.', 404)
+  res.send('This is not the page you are looking for.')
 })
 
 // Only listen on $ node app.js
