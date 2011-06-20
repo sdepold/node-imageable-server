@@ -7,13 +7,13 @@ var express   = require('express')
   
 // Configuration
 app.configure(function(){
+  app.use(express.logger({ format: ':method :url' }));
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
     before: function() { return +new Date() },
     after: function(start) {
       var duration = +new Date() - start
-      config.hasOwnProperty('hummingBird') && http.get(config.hummingBird)
     }
   }))
   app.use(app.router)
