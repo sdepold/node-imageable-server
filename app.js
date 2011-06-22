@@ -7,13 +7,27 @@ var express   = require('express')
   
 // Configuration
 app.configure(function(){
-  app.use(express.logger({ format: ':method :url' }));
+  var start = Date.now()
+  
+  app.use(express.logger({ format: ':method :url' }))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
-    before: function() { return +new Date() },
-    after: function(start) {
-      var duration = +new Date() - start
+    before: function(stats) {},
+    after: function(stats) {
+      
+      if(config.statsd && ((Date.now() - (config.statsd.interval * 1000)) > start)) {
+        var data = stats.format()
+
+        for(var key in data) {
+          var cmd = config.statsd.commands[key].replace("%{by}", data[key])
+          console.log("SENDING", cmd)
+          require('child_process').exec(cmd, function () {})
+        }
+
+        stats.reset()
+        start = Date.now()
+      }
     }
   }))
   app.use(app.router)
