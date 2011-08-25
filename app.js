@@ -22,7 +22,9 @@ app.configure(function(){
           var url = config.statsd.urls[key].replace("%{by}", data[key])
           
           console.log("REQUESTING:", url)
-          require('child_process').exec("curl --insecure " + url, function () {})
+          require('child_process').exec("curl --insecure " + url, function(err, stdout, stderr) {
+            console.log("REQUEST-RESULT: ", err, stdout)
+          })
         }
 
         stats.reset()
