@@ -1,9 +1,9 @@
 var express   = require('express')
   , imageable = require("imageable")
-  , app       = module.exports = express.createServer()
-  , fs        = require("fs")
-  , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
   , http      = require("http")
+  , fs        = require("fs")
+  , app       = module.exports = express.createServer()
+  , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
 
 // Configuration
 app.configure(function(){
@@ -20,9 +20,10 @@ app.configure(function(){
 
         for(var key in data) {
           var url = config.statsd.urls[key].replace("%{by}", data[key])
+            , cmd = "curl --insecure '" + url + "'"
           
-          console.log("REQUESTING:", url)
-          require('child_process').exec("curl --insecure " + url, function(err, stdout, stderr) {
+          console.log("EXECUTING:", cmd)
+          require('child_process').exec(cmd, function(err, stdout, stderr) {
             console.log("REQUEST-RESULT: ", err, stdout)
           })
         }
