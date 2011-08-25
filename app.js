@@ -1,5 +1,6 @@
 var express   = require('express')
   , imageable = require("imageable")
+  , imageable = require("/Users/sdepold/Projects/node-imageable/index")
   , app       = module.exports = express.createServer()
   , fs        = require("fs")
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
@@ -19,9 +20,10 @@ app.configure(function(){
         var data = stats.format()
 
         for(var key in data) {
-          var cmd = config.statsd.commands[key].replace("%{by}", data[key])
-          console.log("SENDING", cmd)
-          require('child_process').exec(cmd, function () {})
+          var url = config.statsd.urls[key].replace("%{by}", data[key])
+          
+          console.log("REQUESTING:", url)
+          require('child_process').exec("curl --insecure " + url, function () {})
         }
 
         stats.reset()
