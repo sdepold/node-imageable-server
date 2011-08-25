@@ -1,6 +1,5 @@
 var express   = require('express')
   , imageable = require("imageable")
-  , imageable = require("/Users/sdepold/Projects/node-imageable/index")
   , app       = module.exports = express.createServer()
   , fs        = require("fs")
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
