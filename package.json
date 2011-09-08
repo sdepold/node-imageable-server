@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "express": ">=2.3.7",
-    "imageable": "=0.5.0"
+    "imageable": "=0.5.1"
   },
   "devDependencies": {
     "vows": ">=0.5.8"
