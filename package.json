@@ -2,7 +2,7 @@
   "author": "DaWanda GmbH <mirko@dawanda.com>",
   "name": "imageable",
   "description": "On-demand image manipulation server in node.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/dawanda/node-imageable",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "express": ">=2.3.7",
-    "imageable": ">=0.4.0"
+    "imageable": "=0.5.0"
   },
   "devDependencies": {
     "vows": ">=0.5.8"
