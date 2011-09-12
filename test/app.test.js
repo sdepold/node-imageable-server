@@ -2,7 +2,7 @@ var assert    = require('assert')
   , vows      = require("vows")
   , helpers   = require("./misc/helpers")
   , srcImgUrl = encodeURIComponent("http://www.google.com/intl/en_ALL/images/logo.gif")
-  
+
 vows.describe('app').addBatch({
   'GET /': {
     topic: function() { helpers.requestServer('/', this.callback) },
