@@ -1,5 +1,6 @@
 var express   = require('express')
   , imageable = require("imageable")
+  , imageable = require("/Users/sdepold/Projects/node-imageable/index")
   , http      = require("http")
   , fs        = require("fs")
   , app       = module.exports = express.createServer()
