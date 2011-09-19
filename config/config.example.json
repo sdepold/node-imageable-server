@@ -1,6 +1,0 @@
-{
-  "secret":       "my-very-secret-secret"
-, "magicHash":    "magic"
-, "namespace":    ""
-, "maxListeners": 512
-}

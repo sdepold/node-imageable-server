@@ -1,21 +1,12 @@
 var express   = require('express')
-  , imageable = require("imageable")
   , http      = require("http")
-  , fs        = require("fs")
   , app       = module.exports = express.createServer()
-  , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
 
 // Configuration
 app.configure(function(){
-  var start = Date.now()
-
   app.use(express.logger({ format: ':date - :method :url' }))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
-  app.use(imageable(config, {
-    before: function() {},
-    after: function(stats) {}
-  }))
   app.use(app.router)
 })
 
@@ -29,7 +20,15 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', function(req, res, next) {
-  res.send('This is not the page you are looking for.')
+  res.send('This is a fallback page you are not looking for.')
+})
+
+app.get('*', function(req, res, next) {
+  var url = req.param('url')
+  if(url)
+    res.redirect(decodeURIComponent(url), 302)
+  else
+    res.redirect('/', 302)
 })
 
 // Only listen on $ node app.js
