@@ -1,5 +1,6 @@
 var express   = require('express')
   , imageable = require("imageable")
+  , connect   = require('connect')
   , http      = require("http")
   , fs        = require("fs")
   , app       = module.exports = express.createServer()
@@ -7,15 +8,12 @@ var express   = require('express')
 
 // Configuration
 app.configure(function(){
-  var start = Date.now()
+  connect.logger.token('date', function(){ return imageable.Logger.formatDate(new Date()) })
 
-  app.use(express.logger({ format: ':date - :method :url' }))
+  app.use(connect.logger({ immediate: true, format: "\\n:date :method | :status | :url (via :referrer)" }))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
-  app.use(imageable(config, {
-    before: function() {},
-    after: function(stats) {}
-  }))
+  app.use(imageable(config))
   app.use(app.router)
 })
 
@@ -30,6 +28,10 @@ app.configure('production', function(){
 // Routes
 app.get('/', function(req, res, next) {
   res.send('This is not the page you are looking for.')
+})
+
+app.get('/favicon.ico', function(req, res) {
+  res.send('')
 })
 
 // Only listen on $ node app.js
