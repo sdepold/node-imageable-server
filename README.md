@@ -29,3 +29,8 @@ For further information take a look at the node-imageable documentation: https:/
 
 If you need a fallback solution for (whyever) failing resizer apps, you can checkout the `fallback` branch. This app just redirects all
 requests to the url param.
+
+# Authors/Contributors
+
+- DaWanda GmbH
+- Sascha Depold ([Twitter](http://twitter.com/sdepold) | [Github](http://github.com/sdepold) | [Website](http://depold.com))
