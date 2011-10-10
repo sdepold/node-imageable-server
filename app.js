@@ -7,7 +7,6 @@ var express   = require('express')
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
   , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
 
-console.log(config.airbrake, airbrake)
 // Configuration
 app.configure(function(){
   connect.logger.token('date', function(){ return imageable.Logger.formatDate(new Date()) })
