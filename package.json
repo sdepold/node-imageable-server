@@ -17,7 +17,8 @@
   "dependencies": {
     "express": "=2.3.7",
     "connect": "=1.7.1",
-    "imageable": "=0.8.2"
+    "imageable": "=0.8.2",
+    "airbrake": "=0.2.3"
   },
   "devDependencies": {
     "vows": ">=0.5.8"

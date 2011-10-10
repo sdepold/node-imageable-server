@@ -5,7 +5,9 @@ var express   = require('express')
   , fs        = require("fs")
   , app       = module.exports = express.createServer()
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
+  , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
 
+console.log(config.airbrake, airbrake)
 // Configuration
 app.configure(function(){
   connect.logger.token('date', function(){ return imageable.Logger.formatDate(new Date()) })
@@ -13,7 +15,11 @@ app.configure(function(){
   app.use(connect.logger({ immediate: true, format: "\\n:date :method | :status | :url (via :referrer)" }))
   app.use(express.bodyParser())
   app.use(express.methodOverride())
-  app.use(imageable(config))
+  app.use(imageable(config, {
+    after: function(_, _, err) {
+      if(err && airbrake) airbrake.notify(err)
+    }
+  }))
   app.use(app.router)
 })
 
