@@ -15,8 +15,11 @@ app.configure(function(){
   app.use(express.bodyParser())
   app.use(express.methodOverride())
   app.use(imageable(config, {
-    after: function(_, _, err) {
-      if(err && airbrake) airbrake.notify(err)
+    after: function(_, _, err, req) {
+      if(err && airbrake) {
+        err.session = req.headers
+        airbrake.notify(err)
+      }
     }
   }))
   app.use(app.router)
