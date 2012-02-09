@@ -1,0 +1,17 @@
+before_script:
+  - "npm install"
+
+script:
+  - "cp config/config.example.json config/config.json"
+  - "node_modules/.bin/vows test/*.test.js"
+
+notifications:
+  email:
+    - sascha@dawanda.com
+
+language: node_js
+
+node_js:
+  - 0.4
+  - 0.5
+  - 0.6
