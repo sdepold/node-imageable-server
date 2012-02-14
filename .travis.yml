@@ -3,7 +3,7 @@ before_script:
 
 script:
   - "cp config/config.example.json config/config.json"
-  - "node_modules/.bin/vows test/*.test.js"
+  - "npm test"
 
 notifications:
   email:
