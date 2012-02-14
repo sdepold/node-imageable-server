@@ -1,18 +1,18 @@
 var Helpers = module.exports = {
   exec: require('child_process').exec,
   fs:   require('fs'),
-  
+
   serverRequests: 0,
- 
+
   hash: function(s) {
     var config = JSON.parse(Helpers.fs.readFileSync(process.cwd() + "/config/config.example.json"))
     return require("crypto").createHash('md5').update(s + config.secret).digest("hex").slice(0,8)
   },
- 
+
   clearTmpFolder: function() {
     Helpers.exec('rm ' + process.cwd() + "/test/tmp/*")
   },
-  
+
   clearTmpFolderBatch: {
     'clear': {
       topic: function() {
@@ -22,7 +22,7 @@ var Helpers = module.exports = {
       'make it so': function(){}
     }
   },
-  
+
   /*
     path: the path you want to request
     _options: a hash with options, possible options:
@@ -31,7 +31,7 @@ var Helpers = module.exports = {
   */
   requestServer: function(path, _options, _callback) {
     var app      = require(process.cwd() + '/app')
-      , port     = !!app.fd ? app.address().port : (~~(Math.random() * 5000) + 2000)
+      , port     = !!app.address() ? app.address().port : (~~(Math.random() * 5000) + 2000)
       , url      = "http://localhost:" + port + path
       , options  = (typeof _options == 'function') ? {} : _options
       , callback = (typeof _options == 'function') ? _options : _callback
@@ -39,11 +39,11 @@ var Helpers = module.exports = {
 
     Helpers.serverRequests++
 
-    if (!app.fd) {
+    if (!app.address()) {
       app.listen(port)
       console.log("Express server listening on port %d", app.address().port)
     }
-    
+
     Helpers.exec(cmd, function(err, stdout, stderr) {
       callback && callback(err, stdout, stderr)
       if(--Helpers.serverRequests == 0) {

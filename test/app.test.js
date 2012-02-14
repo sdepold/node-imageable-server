@@ -71,7 +71,6 @@ vows.describe('app').addBatch({
     },
     'with invalid hash': {
       topic: function() {
-        var target  = helpers.testImageTargetPath
         helpers.requestServer('/crop/asdeasd?url=' + srcImgUrl + '&crop=' + encodeURIComponent('200x400+10+10'), this.callback)
       },
       "doesn't work": function(err, stdout) {
