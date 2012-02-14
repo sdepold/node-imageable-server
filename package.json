@@ -9,7 +9,7 @@
     "url": "git://github.com/dawanda/node-imageable.git"
   },
   "scripts": {
-    "test": "expresso"
+    "test": "node_modules/.bin/vows test/*.test.js"
   },
   "engines": {
     "node": ">=v0.4.11"
