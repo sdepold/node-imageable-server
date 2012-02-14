@@ -4,3 +4,4 @@ node_modules
 config
 config/*
 .idea
+npm-debug.log
