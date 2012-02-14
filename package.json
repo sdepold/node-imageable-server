@@ -12,11 +12,11 @@
     "test": "expresso"
   },
   "engines": {
-    "node": ">=v0.4.7"
+    "node": ">=v0.4.11"
   },
   "dependencies": {
-    "express": "=2.3.7",
-    "connect": "=1.7.1",
+    "express": "=2.5.8",
+    "connect": "=1.8.5",
     "imageable": "=0.8.7",
     "airbrake": "=0.2.3"
   },
