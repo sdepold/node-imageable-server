@@ -26,13 +26,20 @@ var Helpers = module.exports = {
   /*
     path: the path you want to request
     _options: a hash with options, possible options:
-                - toFile: will write the response into a file (e.g. for binary stuff)
+      - toFile: will write the response into a file (e.g. for binary stuff)
     _callback: a function to call after everything is done
   */
   requestServer: function(path, _options, _callback) {
     var app       = require(process.cwd() + '/app')
-      , isRunning = !!app.fd || !!app.address()
-      , port      = isRunning ? app.address().port : (~~(Math.random() * 5000) + 2000)
+      , isRunning = true
+
+    try {
+      isRunning = !!app.address()
+    } catch(e) {
+      isRunning = !!app.fd
+    }
+
+    var port      = isRunning ? app.address().port : (~~(Math.random() * 5000) + 2000)
       , url       = "http://localhost:" + port + path
       , options   = (typeof _options == 'function') ? {} : _options
       , callback  = (typeof _options == 'function') ? _options : _callback
