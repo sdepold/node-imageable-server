@@ -30,16 +30,17 @@ var Helpers = module.exports = {
     _callback: a function to call after everything is done
   */
   requestServer: function(path, _options, _callback) {
-    var app      = require(process.cwd() + '/app')
-      , port     = !!app.address() ? app.address().port : (~~(Math.random() * 5000) + 2000)
-      , url      = "http://localhost:" + port + path
-      , options  = (typeof _options == 'function') ? {} : _options
-      , callback = (typeof _options == 'function') ? _options : _callback
-      , cmd      = "curl --silent '" + url + "'" + (options.toFile ? " > " + options.toFile : '')
+    var app       = require(process.cwd() + '/app')
+      , isRunning = !!app.fd || !!app.address()
+      , port      = isRunning ? app.address().port : (~~(Math.random() * 5000) + 2000)
+      , url       = "http://localhost:" + port + path
+      , options   = (typeof _options == 'function') ? {} : _options
+      , callback  = (typeof _options == 'function') ? _options : _callback
+      , cmd       = "curl --silent '" + url + "'" + (options.toFile ? " > " + options.toFile : '')
 
     Helpers.serverRequests++
 
-    if (!app.address()) {
+    if (!isRunning) {
       app.listen(port)
       console.log("Express server listening on port %d", app.address().port)
     }
