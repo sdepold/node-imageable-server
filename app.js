@@ -5,7 +5,7 @@ var express   = require('express')
   , fs        = require("fs")
   , app       = module.exports = express.createServer()
   , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
-  , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
+  , airbrake  = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
 
 // Configuration
 app.configure(function(){
@@ -18,7 +18,9 @@ app.configure(function(){
     after: function(_, _, err, req) {
       if(err && airbrake) {
         err.session = req.headers
-        airbrake.notify(err)
+        airbrake.notify(err, function(err, url){
+          err && console.log(err)
+        })
       }
     }
   }))
