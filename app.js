@@ -1,11 +1,12 @@
-var express   = require('express')
-  , imageable = require("imageable")
-  , connect   = require('connect')
-  , http      = require("http")
-  , fs        = require("fs")
-  , app       = module.exports = express.createServer()
-  , config    = JSON.parse(fs.readFileSync(__dirname + "/config/config.json"))
-  , airbrake  = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
+var express    = require('express')
+  , imageable  = require("imageable")
+  , connect    = require('connect')
+  , http       = require("http")
+  , fs         = require("fs")
+  , app        = module.exports = express.createServer()
+  , configFile = __dirname + "/" + (process.env.CONFIG || "config/config.json")
+  , config     = JSON.parse(fs.readFileSync(configFile))
+  , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
 
 // Configuration
 app.configure(function(){
