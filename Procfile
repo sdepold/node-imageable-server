@@ -1,1 +1,1 @@
-web: CONFIG=config/config.example.json RAILS_ENV=production node app.js
+web: CONFIG=config/config.example.json NODE_ENV=production node app.js
