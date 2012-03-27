@@ -1,1 +1,1 @@
-web: cp config/config.example.json config/config.json && node app.js
+web: CONFIG=config/config.example.json RAILS_ENV=production node app.js
