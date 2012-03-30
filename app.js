@@ -4,7 +4,7 @@ var express    = require('express')
   , http       = require("http")
   , fs         = require("fs")
   , app        = module.exports = express.createServer()
-  , configFile = __dirname + "/" + (process.env.CONFIG || "config/config.example.json")
+  , configFile = __dirname + "/" + (process.env.CONFIG || "config/config.json")
   , config     = JSON.parse(fs.readFileSync(configFile))
   , airbrake   = (config.airbrake ? require("airbrake").createClient(config.airbrake) : null)
 
