@@ -47,6 +47,11 @@ app.get('/favicon.ico', function(req, res) {
 
 // Only listen on $ node app.js
 if (!module.parent) {
+  
+  Fs.open(process.env.PIDFILE || "tmp/node_imageable_server.pid", "w", 0600, function(err, fd) {
+    return Fs.writeSync(fd, process.pid);
+  });
+  
   app.listen(process.env.PORT || 3000)
   console.log("Express server listening on port %d", app.address().port)
 }
