@@ -6,7 +6,7 @@
   "homepage": "https://github.com/dawanda/node-imageable",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dawanda/node-imageable.git"
+    "url": "git://github.com/stipple/node-imageable.git"
   },
   "scripts": {
     "test": "./node_modules/.bin/vows test/*.test.js"
