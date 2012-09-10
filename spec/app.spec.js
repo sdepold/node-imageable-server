@@ -15,9 +15,5 @@ describe('ImageableServer', function() {
         done()
       })
     })
-
-    it("fails", function() {
-      expect(1).toEqual(2)
-    })
   })
 })
