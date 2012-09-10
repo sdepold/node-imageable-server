@@ -1,4 +1,6 @@
-var exec = require('child_process').exec
+var exec   = require('child_process').exec
+  , fs     = require('fs')
+  , crypto = require("crypto")
 
 var Helper = module.exports = {
   images: {
@@ -14,5 +16,10 @@ var Helper = module.exports = {
 
   identify: function(path, callback) {
     exec('identify ' + path, callback)
+  },
+
+  hash: function(s) {
+    var config = JSON.parse(fs.readFileSync(process.cwd() + "/config/config.example.json"))
+    return crypto.createHash('md5').update(s + config.secret).digest("hex").slice(0,8)
   }
 }
