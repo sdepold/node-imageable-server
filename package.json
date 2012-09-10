@@ -9,7 +9,7 @@
     "url": "git://github.com/dawanda/node-imageable.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/vows test/*.test.js"
+    "test": "./node_modules/.bin/buster-test"
   },
   "engines": {
     "node": ">=v0.4.11"
@@ -21,6 +21,7 @@
     "airbrake": "=0.2.4"
   },
   "devDependencies": {
-    "vows": ">=0.5.8"
+    "buster": "~0.6.2",
+    "express-test-bot": "~0.1.2"
   }
 }
