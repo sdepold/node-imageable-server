@@ -96,7 +96,7 @@ describe('ImageableServer', function() {
   describe('pidfile', function() {
     before(function() {
       this.exists  = require('fs').exists || require('path').exists
-      this.pidfile = process.cwd() + "tmp/node_imageable_server.pid"
+      this.pidfile = process.cwd() + "/tmp/node_imageable_server.pid"
     })
 
     it("has no pidfile when server is stopped", function(done) {
@@ -106,31 +106,34 @@ describe('ImageableServer', function() {
       })
     })
 
-    it("//creates a pidfile on server start", function(done) {
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.server.get('/', function() {})
-      this.exists(this.pidfile, function(exists) {
-        expect(exists).toBeTrue()
-        done()
-      })
+    it("creates a pidfile on server start", function(done) {
+      var killServer = this.server.killServer
+
+      this.server.killServer = function() {
+        this.exists(this.pidfile, function(exists) {
+          expect(exists).toBeTrue()
+          killServer.call(this.server)
+
+          done()
+        }.bind(this))
+      }.bind(this)
+
+      this.server.get('/', function(){})
+    })
+
+    it("removes the pidfile after the server was stopped", function(done) {
+      var killServer = this.server.killServer
+
+      this.server.killServer = function() {
+        killServer.call(this.server, function() {
+          this.exists(this.pidfile, function(exists) {
+            expect(exists).toBeFalse()
+            done()
+          }.bind(this))
+        }.bind(this))
+      }.bind(this)
+
+      this.server.get('/', function(){})
     })
   })
 })
