@@ -1,0 +1,5 @@
+## v0.2.1 ##
+- fix specs
+
+## v0.2.0 ##
+- create and delete a pidfile when server was spawned / closed
