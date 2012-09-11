@@ -3,13 +3,13 @@
   "name": "imageable-server",
   "description": "On-demand image manipulation server in node.js",
   "version": "0.1.0",
-  "homepage": "https://github.com/dawanda/node-imageable",
+  "homepage": "https://github.com/dawanda/node-imageable-server",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dawanda/node-imageable.git"
+    "url": "git://github.com/dawanda/node-imageable-server.git"
   },
   "scripts": {
-    "test": "CONFIG='config/config.example.json' ./node_modules/.bin/buster-test"
+    "test": "NODE_ENV=test CONFIG='config/config.example.json' ./node_modules/.bin/buster-test"
   },
   "engines": {
     "node": ">=v0.4.11"

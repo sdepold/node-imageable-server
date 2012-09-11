@@ -93,4 +93,44 @@ describe('ImageableServer', function() {
     })
   })
 
+  describe('pidfile', function() {
+    before(function() {
+      this.exists  = require('fs').exists || require('path').exists
+      this.pidfile = process.cwd() + "tmp/node_imageable_server.pid"
+    })
+
+    it("has no pidfile when server is stopped", function(done) {
+      this.exists(this.pidfile, function(exists) {
+        expect(exists).toBeFalse()
+        done()
+      })
+    })
+
+    it("//creates a pidfile on server start", function(done) {
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.server.get('/', function() {})
+      this.exists(this.pidfile, function(exists) {
+        expect(exists).toBeTrue()
+        done()
+      })
+    })
+  })
 })
