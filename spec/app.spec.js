@@ -1,5 +1,6 @@
 var buster         = require('buster')
   , ExpressTestBot = require('express-test-bot')
+  // , ExpressTestBot = require(__dirname + '/../../node-express-test-bot/index.js')
   , Helper         = require('./helper.js')
   , exec           = require('child_process').exec
 
@@ -124,16 +125,24 @@ describe('ImageableServer', function() {
     it("removes the pidfile after the server was stopped", function(done) {
       var killServer = this.server.killServer
 
-      this.server.killServer = function() {
-        killServer.call(this.server, function() {
-          this.exists(this.pidfile, function(exists) {
-            expect(exists).toBeFalse()
-            done()
-          }.bind(this))
-        }.bind(this))
-      }.bind(this)
+      exec('node --version', function(err, stdout, stderr) {
+        this.server.killServer = function() {
+          var checkExistence = function() {
+            this.exists(this.pidfile, function(exists) {
+              expect(exists).toBeFalse()
+              done()
+            }.bind(this))
+          }.bind(this)
 
-      this.server.get('/', function(){})
+          killServer.call(this.server, checkExistence)
+
+          if(stdout.indexOf('v0.6') !== -1) {
+            this.server.app.on('close', checkExistence)
+          }
+        }.bind(this)
+
+        this.server.get('/', function(){})
+      }.bind(this))
     })
   })
 })
