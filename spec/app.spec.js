@@ -4,6 +4,7 @@ var buster         = require('buster')
   , exec           = require('child_process').exec
 
 buster.spec.expose()
+buster.testRunner.timeout = 10000
 
 describe('ImageableServer', function() {
   before(function() {
