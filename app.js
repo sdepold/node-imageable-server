@@ -48,19 +48,31 @@ app.get('/favicon.ico', function(req, res) {
   res.send('')
 })
 
-// Only listen on $ node app.js
-if (!module.parent) {
+// Only create pidfile on `node app.js` or on `FORCE_PID=true smth...`
+if (!module.parent || process.env.FORCE_PID) {
   var pidfile = process.env.PIDFILE || process.cwd() + "/tmp/node_imageable_server.pid"
 
-  fs.open(pidfile, "w", 0600, function(err, fd) {
-    return fs.writeSync(fd, process.pid)
+  app.on('listening', function() {
+    fs.open(pidfile, "w", 0600, function(err, fd) {
+      return fs.writeSync(fd, process.pid)
+    })
   })
 
   process.on('SIGINT', function() {
-    fs.unlinkSync(pidfile)
-    process.exit()
+    app.close(function() {
+      process.exit()
+    })
   })
 
+  app.on('close', function() {
+    try {
+      fs.unlinkSync(pidfile)
+    } catch(e) {}
+  })
+}
+
+// Only listen on $ node app.js
+if (!module.parent) {
   app.listen(process.env.PORT || 3000)
   console.log("Express server listening on port %d", app.address().port)
 }

@@ -9,7 +9,7 @@
     "url": "git://github.com/dawanda/node-imageable-server.git"
   },
   "scripts": {
-    "test": "NODE_ENV=test CONFIG='config/config.example.json' ./node_modules/.bin/buster-test"
+    "test": "FORCE_PID=true NODE_ENV=test CONFIG='config/config.example.json' ./node_modules/.bin/buster-test"
   },
   "engines": {
     "node": ">=v0.4.11"
